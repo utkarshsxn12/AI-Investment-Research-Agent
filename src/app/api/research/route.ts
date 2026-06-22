@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 
           for await (const chunk of eventStream) {
             const nodeName = Object.keys(chunk)[0];
-            const nodeOutput = chunk[nodeName];
+            const nodeOutput = (chunk as any)[nodeName];
             
             // Extract latest log entry
             const latestLog = nodeOutput.logs && nodeOutput.logs.length > 0 

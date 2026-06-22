@@ -6,7 +6,7 @@ export function getLLM(temperature = 0) {
   if (process.env.OPENAI_API_KEY && !process.env.GEMINI_API_KEY) {
     console.log("Using OpenAI model: gpt-4o-mini");
     return new ChatOpenAI({
-      modelName: "gpt-4o-mini",
+      model: "gpt-4o-mini",
       temperature,
       openAIApiKey: process.env.OPENAI_API_KEY,
     });
@@ -16,7 +16,7 @@ export function getLLM(temperature = 0) {
   const geminiKey = process.env.GEMINI_API_KEY || "";
   console.log("Using Google Gemini model: gemini-2.5-flash");
   return new ChatGoogleGenerativeAI({
-    modelName: "gemini-2.5-flash",
+    model: "gemini-2.5-flash",
     temperature,
     apiKey: geminiKey,
   });
