@@ -93,6 +93,9 @@ export default function Home() {
                 if (data.risks) {
                   setRisks(data.risks);
                 }
+                if (data.research) {
+                  setResearch(data.research);
+                }
               } else if (data.event === "error") {
                 setError(data.error);
                 setIsSearching(false);

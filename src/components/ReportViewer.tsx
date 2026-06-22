@@ -60,11 +60,22 @@ export default function ReportViewer({ company, verdict, research, analysis, ris
               <span className="text-slate-400 text-xs font-semibold">{company.toUpperCase()}</span>
             </div>
             
-            <h2 className="text-4xl font-extrabold text-white tracking-tight mt-2 flex items-center gap-3">
+            <h2 className="text-4xl font-extrabold text-white tracking-tight mt-2 flex flex-wrap items-center gap-3">
               Verdict:
               <span className={isInvest ? "text-emerald-400" : "text-rose-400"}>
                 {verdict.decision}
               </span>
+              {verdict.riskLevel && (
+                <span className={`text-xs font-bold px-3 py-1.5 rounded-full border uppercase tracking-wider ml-2 ${
+                  verdict.riskLevel === "Low"
+                    ? "text-emerald-400 border-emerald-500/30 bg-emerald-500/10"
+                    : verdict.riskLevel === "Medium"
+                    ? "text-amber-400 border-amber-500/30 bg-amber-500/10"
+                    : "text-rose-400 border-rose-500/30 bg-rose-500/10"
+                }`}>
+                  {verdict.riskLevel} Risk
+                </span>
+              )}
             </h2>
             <p className="text-slate-400 mt-2 max-w-xl text-sm leading-relaxed">
               {verdict.reasoning}

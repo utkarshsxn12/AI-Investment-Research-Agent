@@ -16,6 +16,7 @@ export interface InvestmentVerdict {
   growthScore: number; // 1 to 10
   valuationScore: number; // 1 to 10
   competitiveMoatScore: number; // 1 to 10
+  riskLevel: "Low" | "Medium" | "High";
 }
 
 export interface InvestmentState {
