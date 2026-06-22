@@ -37,7 +37,7 @@ graph TD
 * **Server-Sent Events (SSE)**: Streams real-time operations logging and active node tracking from the server, making the UI highly responsive and dynamic.
 * **Bloomberg-inspired Dashboard**: Sleek, glassmorphic dark-theme UI with indicator gauges, pro/con matrices, and interactive tabs.
 * **Dual-LLM Support**: Supports both **Google Gemini** (default, free tier) and **OpenAI GPT** models via simple environment switching.
-* **Automated Pair-Programming Logs**: Includes a utility to parse and format pair-programming logs directly into the submission package.
+* **Pair-Programming Logs**: Includes detailed documentation of interactive prompt-response dialogues showing AI collaboration and workflow design.
 
 ---
 
@@ -105,9 +105,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## 📁 Submission Package Contents
 Your zip package includes:
 1. **/src**: React dashboard pages, components, agents logic, and Next.js backend api route.
-2. **/scripts/export-chats.js**: Node script to compile user-AI transcripts.
-3. **ai_chat_transcript.md**: Complete text logs of the pair-programming session between the candidate and the AI assistant, detailing the engineering workflow.
-4. **README.md**: Setup guide, architecture, and design decisions.
+2. **ai_chat_transcript.md**: Complete text logs of the pair-programming session between the candidate and the AI assistant, detailing the engineering workflow.
+3. **README.md**: Setup guide, architecture, and design decisions.
 
 ---
 
