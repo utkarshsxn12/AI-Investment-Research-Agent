@@ -18,7 +18,9 @@ async function test() {
         console.log(nodeOutput.logs[nodeOutput.logs.length - 1].message);
       }
       
-      // Look for errors or missing data
+      if (nodeName === "financialAgent") {
+         console.log(JSON.stringify(nodeOutput.financialOutput, null, 2));
+      }
       if (nodeName === "data_fetcher") {
          console.log("Financial Data Extracted:", !!nodeOutput.financialData);
          if (nodeOutput.financialData?.missingMetrics?.length > 0) {

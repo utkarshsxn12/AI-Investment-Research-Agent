@@ -1,6 +1,8 @@
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatOpenAI } from "@langchain/openai";
 
+import { ChatGroq } from "@langchain/groq";
+
 let currentKeyIndex = 0;
 
 export function getLLM(temperature = 0) {
@@ -46,14 +48,10 @@ export function getLLM(temperature = 0) {
   }
 
   if (activeKey.startsWith("gsk_")) {
-    return new ChatOpenAI({
+    return new ChatGroq({
       model: "llama-3.3-70b-versatile",
       temperature,
       apiKey: activeKey,
-      openAIApiKey: activeKey,
-      configuration: {
-        baseURL: "https://api.groq.com/openai/v1",
-      },
       maxRetries: 0,
     });
   }
