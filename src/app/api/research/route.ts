@@ -3,6 +3,7 @@ import { investmentAgent } from "@/lib/agents/graph";
 import { CommitteeVerdict } from "@/lib/agents/types";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 60; // Prevent Vercel Hobby 10s timeout
 
 // ── In-memory result cache ──────────────────────────────────────────────────
 // Keyed by normalized company name. Stores the full result so repeat searches
