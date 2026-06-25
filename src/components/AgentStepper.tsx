@@ -39,11 +39,25 @@ export default function AgentStepper({ activeNode, logs, isSearching }: AgentSte
   const getStepStatus = (stepId: string) => {
     if (!isSearching) return "idle";
     
+    const nodeToStepIndex: Record<string, number> = {
+      researcher: 0,
+      data_fetcher: 0,
+      financialAgent: 1,
+      valuationAgent: 1,
+      growthAgent: 1,
+      moatAgent: 2,
+      technicalAgent: 2,
+      sentimentAgent: 2,
+      riskAgent: 2,
+      committee: 3,
+    };
+
     const currentIndex = steps.findIndex((s) => s.id === stepId);
-    const activeIndex = activeNode ? steps.findIndex((s) => s.id === activeNode) : -1;
+    const activeIndex = activeNode && nodeToStepIndex[activeNode] !== undefined 
+      ? nodeToStepIndex[activeNode] 
+      : -1;
 
     if (activeIndex === -1) {
-      // If we are searching but activeIndex is not set yet, set the first step as active
       return currentIndex === 0 ? "active" : "idle";
     }
 

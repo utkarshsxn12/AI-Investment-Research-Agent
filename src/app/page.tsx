@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { AgentLog, InvestmentVerdict } from "@/lib/agents/state";
+import { AgentLog, InvestmentState } from "@/lib/agents/state";
+import { CommitteeVerdict } from "@/lib/agents/types";
 import AgentStepper from "@/components/AgentStepper";
 import ReportViewer from "@/components/ReportViewer";
 import { Search, Sparkles, Terminal, AlertTriangle } from "lucide-react";
@@ -11,10 +12,8 @@ export default function Home() {
   const [isSearching, setIsSearching] = useState(false);
   const [activeNode, setActiveNode] = useState<string | null>(null);
   const [logs, setLogs] = useState<AgentLog[]>([]);
-  const [verdict, setVerdict] = useState<InvestmentVerdict | null>(null);
-  const [research, setResearch] = useState("");
-  const [analysis, setAnalysis] = useState("");
-  const [risks, setRisks] = useState("");
+  const [verdict, setVerdict] = useState<CommitteeVerdict | null>(null);
+  const [stateChunk, setStateChunk] = useState<Partial<InvestmentState>>({});
   const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async (e: React.FormEvent) => {
@@ -26,9 +25,7 @@ export default function Home() {
     setActiveNode(null);
     setLogs([]);
     setVerdict(null);
-    setResearch("");
-    setAnalysis("");
-    setRisks("");
+    setStateChunk({});
     setError(null);
 
     try {
@@ -84,18 +81,22 @@ export default function Home() {
                 if (data.log) {
                   setLogs((prev) => [...prev, data.log]);
                 }
-                if (data.verdict) {
-                  setVerdict(data.verdict);
-                }
-                if (data.analysis) {
-                  setAnalysis(data.analysis);
-                }
-                if (data.risks) {
-                  setRisks(data.risks);
-                }
-                if (data.research) {
-                  setResearch(data.research);
-                }
+                if (data.verdict) setVerdict(data.verdict);
+                
+                // Merge everything into the stateChunk for the UI to consume
+                setStateChunk(prev => ({
+                  ...prev,
+                  verdict: data.verdict || prev.verdict,
+                  research: data.research || prev.research,
+                  financialOutput: data.financialOutput || prev.financialOutput,
+                  valuationOutput: data.valuationOutput || prev.valuationOutput,
+                  growthOutput: data.growthOutput || prev.growthOutput,
+                  moatOutput: data.moatOutput || prev.moatOutput,
+                  technicalOutput: data.technicalOutput || prev.technicalOutput,
+                  sentimentOutput: data.sentimentOutput || prev.sentimentOutput,
+                  riskOutput: data.riskOutput || prev.riskOutput,
+                  financialData: data.financialData || prev.financialData,
+                }));
               } else if (data.event === "error") {
                 setError(data.error);
                 setIsSearching(false);
@@ -231,10 +232,7 @@ export default function Home() {
         {verdict && !isSearching && (
           <ReportViewer
             company={company}
-            verdict={verdict}
-            research={research}
-            analysis={analysis}
-            risks={risks}
+            stateChunk={stateChunk}
           />
         )}
 

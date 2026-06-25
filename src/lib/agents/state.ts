@@ -1,4 +1,5 @@
 import { Annotation } from "@langchain/langgraph";
+import { AgentOutput, CommitteeVerdict, QuantitativeData } from "./types";
 
 export interface AgentLog {
   agent: string;
@@ -6,25 +7,21 @@ export interface AgentLog {
   timestamp: string;
 }
 
-export interface InvestmentVerdict {
-  decision: "INVEST" | "PASS";
-  score: number; // 0 to 100
-  reasoning: string;
-  pros: string[];
-  cons: string[];
-  financialHealthScore: number; // 1 to 10
-  growthScore: number; // 1 to 10
-  valuationScore: number; // 1 to 10
-  competitiveMoatScore: number; // 1 to 10
-  riskLevel: "Low" | "Medium" | "High";
-}
-
 export interface InvestmentState {
   company: string;
   research: string;
-  analysis: string;
-  risks: string;
-  verdict: InvestmentVerdict | null;
+  financialData: QuantitativeData | null;
+  
+  // Agent Outputs
+  financialOutput: AgentOutput | null;
+  valuationOutput: AgentOutput | null;
+  growthOutput: AgentOutput | null;
+  moatOutput: AgentOutput | null;
+  technicalOutput: AgentOutput | null;
+  sentimentOutput: AgentOutput | null;
+  riskOutput: AgentOutput | null;
+  
+  verdict: CommitteeVerdict | null;
   logs: AgentLog[];
 }
 
@@ -34,15 +31,19 @@ export const StateAnnotation = Annotation.Root({
     reducer: (a, b) => b ?? a ?? "",
     default: () => "",
   }),
-  analysis: Annotation<string>({
-    reducer: (a, b) => b ?? a ?? "",
-    default: () => "",
+  financialData: Annotation<QuantitativeData | null>({
+    reducer: (a, b) => b ?? a ?? null,
+    default: () => null,
   }),
-  risks: Annotation<string>({
-    reducer: (a, b) => b ?? a ?? "",
-    default: () => "",
-  }),
-  verdict: Annotation<InvestmentVerdict | null>({
+  
+  financialOutput: Annotation<AgentOutput | null>({ reducer: (a, b) => b ?? a ?? null, default: () => null }),
+  valuationOutput: Annotation<AgentOutput | null>({ reducer: (a, b) => b ?? a ?? null, default: () => null }),
+  growthOutput: Annotation<AgentOutput | null>({ reducer: (a, b) => b ?? a ?? null, default: () => null }),
+  moatOutput: Annotation<AgentOutput | null>({ reducer: (a, b) => b ?? a ?? null, default: () => null }),
+  technicalOutput: Annotation<AgentOutput | null>({ reducer: (a, b) => b ?? a ?? null, default: () => null }),
+  sentimentOutput: Annotation<AgentOutput | null>({ reducer: (a, b) => b ?? a ?? null, default: () => null }),
+  riskOutput: Annotation<AgentOutput | null>({ reducer: (a, b) => b ?? a ?? null, default: () => null }),
+  verdict: Annotation<CommitteeVerdict | null>({
     reducer: (a, b) => b ?? a ?? null,
     default: () => null,
   }),

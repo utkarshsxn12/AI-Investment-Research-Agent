@@ -48,6 +48,9 @@ export function getLLM(temperature = 0) {
   return new ChatGoogleGenerativeAI({
     model: "gemini-2.5-flash",
     temperature,
+    // Lock sampling to greedy decoding so scores are reproducible across runs
+    topP: temperature === 0 ? 0 : undefined,
+    topK: temperature === 0 ? 1 : undefined,
     apiKey: activeKey,
     maxRetries: 5,
   });
