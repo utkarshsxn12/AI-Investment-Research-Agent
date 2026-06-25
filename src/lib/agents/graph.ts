@@ -34,30 +34,24 @@ const workflow = new StateGraph(StateAnnotation)
   .addEdge(START, "researcher")
   .addEdge(START, "data_fetcher")
   
-  // Wait for data collection, then fan-out to parallel agents
+  // Wait for data collection, then run fast deterministic agents
   .addEdge("researcher", "financialAgent")
-  .addEdge("researcher", "valuationAgent")
-  .addEdge("researcher", "growthAgent")
-  .addEdge("researcher", "moatAgent")
-  .addEdge("researcher", "technicalAgent")
-  .addEdge("researcher", "sentimentAgent")
-  .addEdge("researcher", "riskAgent")
-  
   .addEdge("data_fetcher", "financialAgent")
-  .addEdge("data_fetcher", "valuationAgent")
-  .addEdge("data_fetcher", "growthAgent")
-  .addEdge("data_fetcher", "moatAgent")
-  .addEdge("data_fetcher", "technicalAgent")
-  .addEdge("data_fetcher", "sentimentAgent")
-  .addEdge("data_fetcher", "riskAgent")
   
-  // Fan-in to the committee
-  .addEdge("financialAgent", "committee")
-  .addEdge("valuationAgent", "committee")
-  .addEdge("growthAgent", "committee")
-  .addEdge("moatAgent", "committee")
-  .addEdge("technicalAgent", "committee")
-  .addEdge("sentimentAgent", "committee")
+  .addEdge("researcher", "valuationAgent")
+  .addEdge("data_fetcher", "valuationAgent")
+  
+  .addEdge("researcher", "technicalAgent")
+  .addEdge("data_fetcher", "technicalAgent")
+  
+  // Chain LLM Qualitative Agents sequentially to bypass free-tier rate limits beautifully!
+  .addEdge("financialAgent", "growthAgent")
+  .addEdge("valuationAgent", "growthAgent")
+  .addEdge("technicalAgent", "growthAgent")
+  
+  .addEdge("growthAgent", "moatAgent")
+  .addEdge("moatAgent", "sentimentAgent")
+  .addEdge("sentimentAgent", "riskAgent")
   .addEdge("riskAgent", "committee")
   
   .addEdge("committee", END);

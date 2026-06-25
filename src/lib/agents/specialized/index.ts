@@ -49,10 +49,6 @@ Important: Your output MUST be a strict quantitative evaluation. Assign a base s
 
   let response: any;
   try {
-    // Anti-Rate-Limit Stagger: wait 1 to 6 seconds randomly to avoid bursting free-tier APIs
-    const staggerMs = Math.floor(Math.random() * 5000) + 1000;
-    await new Promise(r => setTimeout(r, staggerMs));
-
     response = await structuredLlm.invoke(prompt);
   } catch (error) {
     console.error(`[${agentName}] Failed structured output fallback:`, error);
