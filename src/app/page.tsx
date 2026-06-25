@@ -134,7 +134,7 @@ export default function Home() {
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <span className="font-extrabold text-white tracking-wider text-base uppercase">
-            Altuni <span className="text-indigo-400 font-medium">Research</span>
+            AI <span className="text-indigo-400 font-medium">Research Agent</span>
           </span>
         </div>
 
@@ -251,7 +251,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="w-full max-w-6xl mt-24 border-t border-slate-900 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-600 gap-4">
         <div>
-          © 2026 InsideIIM x Altuni AI Labs take-home candidate entry.
+          Made by Utkarsh!
         </div>
         <div className="flex items-center gap-6">
           <span>Tech Stack: Next.js + LangGraph.js + Gemini 2.5</span>
