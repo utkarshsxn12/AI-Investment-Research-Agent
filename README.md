@@ -1,14 +1,43 @@
 # Altuni Research: AI Investment Research Agent
 
+## Overview
 Altuni Research is an institutional-grade, multi-agent consensus network powered by **LangGraph.js** and **Next.js**, designed to automate comprehensive equity research. Given a company name, the application spawns a coordinated network of 10 highly-specialized AI agents to gather real-time web data, fetch financial metrics, analyze business fundamentals, map execution risks, and issue a final consensus verdict (INVEST or PASS) with an institutional scorecard.
 
 ---
 
-## 🏗️ System Architecture & Workflow
+## How to run it
+
+### 1. Prerequisites
+Ensure you have **Node.js (v18+)** installed.
+
+### 2. Environment Setup
+Create a `.env` file in the root directory (you can copy `.env.example` as a template):
+```bash
+cp .env.example .env
+```
+Fill in the following credentials:
+```env
+GEMINI_API_KEY=your_gemini_or_groq_api_key_here
+TAVILY_API_KEY=your_tavily_api_key_here
+ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key_here
+```
+*(Note: To use Groq's lightning-fast models instead of Gemini, simply provide a Groq API key starting with `gsk_` into the `GEMINI_API_KEY` slot. The application will automatically detect it and route inference to Groq's `llama-3.3-70b-versatile`!)*
+
+### 3. Installation & Run
+Install the project dependencies and launch the Next.js development server:
+```bash
+npm install
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## How it works
 
 The application implements a robust, stateful multi-agent network using **LangGraph.js**. To maximize performance and bypass strict free-tier LLM rate limits (e.g., Google Gemini's burst limits), the pipeline intelligently combines parallel execution for deterministic agents and sequential execution for qualitative LLM agents.
 
-### LangGraph Workflow
+### LangGraph Workflow Architecture
 
 ```mermaid
 graph TD
@@ -59,50 +88,7 @@ graph TD
 
 ---
 
-## ✨ Features & Design Aesthetics
-* **Multi-Agent Orchestration**: Built on top of LangChain's `StateGraph` for predictable pipelines, dynamic fallbacks, and modular reasoning loops.
-* **Intelligent API Rate Limiting Bypass**: Qualitative agents are staggered sequentially to prevent 429 Too Many Requests errors on free-tier LLM API plans.
-* **Server-Sent Events (SSE)**: Streams real-time operations logging and active node tracking from the server, making the UI highly responsive and dynamic.
-* **Bloomberg-Terminal Inspired Dashboard**: A sleek, glassmorphic dark-theme UI featuring smooth micro-animations, indicator gauges, pro/con matrices, and dynamic interactive tabs.
-* **Multi-LLM Native Support**: Supports **Google Gemini 2.5 Flash** (default), **Groq Llama 3.3 70B** (for lightning-fast inference), and **OpenAI GPT-4o** via simple environment variable switching.
-* **Indestructible Fallbacks**: Quantitative data fetchers feature multi-layered fallbacks (Alpha Vantage -> Yahoo -> LLM Extraction -> Hardcoded Baseline) ensuring the app *never* crashes during live demos due to missing data.
-
----
-
-## 🚀 Getting Started
-
-### 1. Prerequisites
-Ensure you have **Node.js (v18+)** installed.
-
-### 2. Environment Setup
-Create a `.env` file in the root directory (you can copy `.env.example` as a template):
-```bash
-cp .env.example .env
-```
-Fill in the following credentials:
-```env
-GEMINI_API_KEY=your_gemini_or_groq_api_key_here
-TAVILY_API_KEY=your_tavily_api_key_here
-ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key_here
-```
-*(Note: To use Groq's lightning-fast models instead of Gemini, simply provide a Groq API key starting with `gsk_` into the `GEMINI_API_KEY` slot. The application will automatically detect it and route inference to Groq's `llama-3.3-70b-versatile`!)*
-
-### 3. Installation
-Install the project dependencies:
-```bash
-npm install
-```
-
-### 4. Run the App
-Launch the Next.js development server:
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🛠️ Key Decisions & Technical Trade-offs
+## Key decisions & trade-offs
 
 * **Why Next.js App Router?** 
   Next.js provides a unified frontend and backend API routing architecture. It allows us to stream agent states via standard `ReadableStreams` using Server-Sent Events (SSE), with excellent compile speeds and painless Vercel deployment.
@@ -110,11 +96,43 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
   A simple sequence of chains is rigid and brittle. LangGraph allows state validation at each node. Defining the agent as a compiled state graph makes it possible to scale to complex flows, implement multi-layered error-catching fallbacks, and stagger execution loops seamlessly.
 * **Why Tavily Search API?**
   Standard Google/Bing search APIs return raw HTML that requires heavy cleaning. Tavily is specifically optimized for LLM agents, yielding structured content and summaries that prevent prompt clutter.
+* **Why Custom UI over pre-built component libraries?**
+  Using custom TailwindCSS and SVG layouts for scores and sliders ensures zero SSR hydration bugs, fast page load times, and a highly premium "Bloomberg Terminal" aesthetic without introducing heavy peer-dependency bloat.
+* **What I left out:**
+  I omitted relying on a dedicated vector database (like Pinecone) for RAG on historical 10-K filings to keep the architecture stateless, fast, and easily deployable on Vercel's serverless tier. 
 
 ---
 
-## 📁 Submission Package Contents
-1. **/src**: React dashboard pages, components, agents logic, and Next.js backend API routes.
-2. **ai_chat_transcript.md**: Text logs of the pair-programming session between the candidate and the AI.
-3. **ai_transcript_2.md**: Extended AI interaction logs.
-4. **README.md**: Setup guide, architecture, and design decisions.
+## Example runs
+
+### Case Study 1: **NVIDIA (NVDA)**
+* **Verdict**: `STRONG INVEST`
+* **Consensus Score**: `85/100`
+* **Pros**: Dominant market share (80%+) in enterprise AI accelerators, incredibly high pricing power, and robust net margins (>50%).
+* **Cons**: Supply chain reliance on TSMC, potential cyclical memory chips downturn, and rising threat from custom customer silicon (ASICs).
+* **Agent Breakdown**:
+  * Financial Health: `9/10`
+  * Growth Potential: `9/10`
+  * Valuation Comfort: `5/10`
+  * Competitive Moat: `10/10`
+  * Technical Setup: `8/10`
+
+### Case Study 2: **Microsoft (MSFT)**
+* **Verdict**: `INVEST`
+* **Consensus Score**: `82/100`
+* **Pros**: Highly diversified revenue streams, massive enterprise cloud growth (Azure), and early leadership in applied generative AI via OpenAI partnership.
+* **Cons**: Premium valuation multiples (Forward P/E > 30), high capital expenditures for AI infrastructure, and increasing regulatory scrutiny.
+* **Agent Breakdown**:
+  * Financial Health: `9/10`
+  * Growth Potential: `8/10`
+  * Valuation Comfort: `6/10`
+  * Competitive Moat: `9/10`
+  * Technical Setup: `7/10`
+
+---
+
+## What you would improve with more time
+
+1. **Interactive Historical Charts**: Integrate lightweight charting libraries (like Recharts) to map historical stock price and EPS trends directly in the UI dashboard alongside the agent analysis.
+2. **Dynamic Scraping (10-K parsing)**: Implement a PDF parser and vector database (RAG) to scan official SEC filings (10-K/10-Q) instead of relying solely on general web search for deeper fundamental conviction.
+3. **Cyclic Revision Node**: Add a critic node in LangGraph that checks the final committee decision against historical parameters and returns the state back to the agents if additional justification or data is needed.
