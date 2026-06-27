@@ -110,7 +110,7 @@ graph TD
 ![NVIDIA Analysis Report](./public/nvidia-report.png)
 
 * **Verdict**: `STRONG INVEST`
-* **Consensus Score**: `85/100`
+* **Consensus Score**: `81/100`
 * **Pros**: Dominant market share (80%+) in enterprise AI accelerators, incredibly high pricing power, and robust net margins (>50%).
 * **Cons**: Supply chain reliance on TSMC, potential cyclical memory chips downturn, and rising threat from custom customer silicon (ASICs).
 * **Agent Breakdown**:
@@ -124,7 +124,7 @@ graph TD
 ![Microsoft Analysis Report](./public/msft-report.png)
 
 * **Verdict**: `INVEST`
-* **Consensus Score**: `82/100`
+* **Consensus Score**: `79/100`
 * **Pros**: Highly diversified revenue streams, massive enterprise cloud growth (Azure), and early leadership in applied generative AI via OpenAI partnership.
 * **Cons**: Premium valuation multiples (Forward P/E > 30), high capital expenditures for AI infrastructure, and increasing regulatory scrutiny.
 * **Agent Breakdown**:
