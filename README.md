@@ -107,6 +107,8 @@ graph TD
 ## Example runs
 
 ### Case Study 1: **NVIDIA (NVDA)**
+![NVIDIA Analysis Report](./public/nvidia-report.png)
+
 * **Verdict**: `STRONG INVEST`
 * **Consensus Score**: `85/100`
 * **Pros**: Dominant market share (80%+) in enterprise AI accelerators, incredibly high pricing power, and robust net margins (>50%).
@@ -119,6 +121,8 @@ graph TD
   * Technical Setup: `8/10`
 
 ### Case Study 2: **Microsoft (MSFT)**
+![Microsoft Analysis Report](./public/msft-report.png)
+
 * **Verdict**: `INVEST`
 * **Consensus Score**: `82/100`
 * **Pros**: Highly diversified revenue streams, massive enterprise cloud growth (Azure), and early leadership in applied generative AI via OpenAI partnership.
