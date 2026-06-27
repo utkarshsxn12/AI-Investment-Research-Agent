@@ -108,6 +108,7 @@ graph TD
 
 ### Case Study 1: **NVIDIA (NVDA)**
 ![NVIDIA Analysis Report](./public/nvidia-report.png)
+![NVIDIA Sources Report](./public/nvidia-sources.png)
 
 * **Verdict**: `STRONG INVEST`
 * **Consensus Score**: `81/100`
