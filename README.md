@@ -122,6 +122,7 @@ graph TD
 
 ### Case Study 2: **Microsoft (MSFT)**
 ![Microsoft Analysis Report](./public/msft-report.png)
+![Microsoft Sources Report](./public/msft-sources.png)
 
 * **Verdict**: `INVEST`
 * **Consensus Score**: `79/100`
