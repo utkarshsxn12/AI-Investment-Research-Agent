@@ -1,7 +1,7 @@
-# Altuni Research: AI Investment Research Agent
+# AI Investment Research Agent
 
 ## Overview
-Altuni Research is an institutional-grade, multi-agent consensus network powered by **LangGraph.js** and **Next.js**, designed to automate comprehensive equity research. Given a company name, the application spawns a coordinated network of 10 highly-specialized AI agents to gather real-time web data, fetch financial metrics, analyze business fundamentals, map execution risks, and issue a final consensus verdict (INVEST or PASS) with an institutional scorecard.
+ An institutional-grade, multi-agent consensus network powered by **LangGraph.js** and **Next.js**, designed to automate comprehensive equity research. Given a company name, the application spawns a coordinated network of 10 highly-specialized AI agents to gather real-time web data, fetch financial metrics, analyze business fundamentals, map execution risks, and issue a final consensus verdict (INVEST or PASS) with an institutional scorecard.
 
 ---
 
